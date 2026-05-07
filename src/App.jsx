@@ -34,7 +34,7 @@ function Home({ setNav }) {
           <button onClick={()=>setNav("LEADERBOARD")} style={{ padding:"12px 24px", background:"transparent", border:"1px solid #1A2540", borderRadius:8, color:"#E8F0FF", fontWeight:700, fontSize:13, cursor:"pointer" }}>LEADERBOARD</button>
         </div>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:12, marginBottom:20 }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:12, marginBottom:20 }}>
         {[["👾","18,400+","Players"],["🛡️","1,200+","Teams"],["🏆","340+","Tournaments"],["💰","$280K+","Prize Pool"]].map(([icon,val,label])=>(
           <div key={label} style={{ background:"#0A1020", border:"1px solid #1A2540", borderRadius:10, padding:14, textAlign:"center" }}>
             <div style={{ fontSize:22 }}>{icon}</div>
