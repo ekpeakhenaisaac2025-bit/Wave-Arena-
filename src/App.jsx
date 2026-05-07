@@ -1,3 +1,4 @@
+import MatchResult from "./MatchResult"
 import { useState, useEffect } from "react"
 import { supabase } from "./supabase"
 import Auth from "./Auth"
@@ -11,7 +12,7 @@ const C = {
   green: "#00FF88",
 }
 
-const NAV = ["HOME", "TOURNAMENTS", "LEADERBOARD", "PROFILE"]
+const NAV = ["HOME", "TOURNAMENTS", "MATCHES", "LEADERBOARD", "PROFILE"]
 
 const PLAYERS = [
   { rank:1, name:"WaveRider07", country:"🇳🇬", rating:2450, tier:"DIAMOND II" },
@@ -133,11 +134,12 @@ export default function App() {
   if (!hasProfile) return <ProfileSetup user={session.user} onComplete={() => setHasProfile(true)} />
 
   const pages = {
-    HOME: <Home setNav={setNav} />,
-    TOURNAMENTS: <Tournaments user={session.user} />,
-    LEADERBOARD: <Leaderboard />,
-    PROFILE: <Profile user={session.user} />
-  }
+  HOME: <Home setNav={setNav} />,
+  TOURNAMENTS: <Tournaments user={session.user} />,
+  MATCHES: <MatchResult user={session.user} />,
+  LEADERBOARD: <Leaderboard />,
+  PROFILE: <Profile user={session.user} />
+}
 
   return (
     <div style={{ minHeight:"100vh", background:"#050810", color:"#E8F0FF", fontFamily:"'Segoe UI', sans-serif" }}>
@@ -167,7 +169,7 @@ export default function App() {
 
       {/* Bottom Nav for Mobile */}
       <div style={{ position:"fixed", bottom:0, left:0, right:0, background:"#080D1A", borderTop:"1px solid #1A2540", display:"flex", justifyContent:"space-around", padding:"8px 0", zIndex:100 }}>
-        {[["🏠","HOME"],["🏆","TOURNAMENTS"],["📊","LEADERBOARD"],["👤","PROFILE"]].map(([icon,item])=>(
+        {[["🏠","HOME"],["🏆","TOURNAMENTS"],["⚔️","MATCHES"],["📊","LEADERBOARD"],["👤","PROFILE"]].map(([icon,item])=>(
           <button key={item} onClick={()=>setNav(item)} style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:2, background:"none", border:"none", color: nav===item ? "#00A8FF" : "#5A7099", cursor:"pointer", padding:"4px 12px" }}>
             <span style={{ fontSize:18 }}>{icon}</span>
             <span style={{ fontSize:9, letterSpacing:0.5, fontWeight: nav===item ? 700 : 400 }}>{item}</span>
