@@ -20,17 +20,16 @@ export default function ProfileSetup({ user, onComplete }) {
   const handleSave = async () => {
     if (!username.trim()) { setError("Username is required"); return }
     setLoading(true)
-    const { error } = await supabase.from("players").insert({
-      user_id: user.id,
+    setError("")
+    console.log("SAVING NOW - user id:", user.id)
+    const { data, error } = await supabase.from("players").insert({
+      id: user.id,
       username: username.trim(),
-      game,
-      country,
-      wins: 0,
-      losses: 0,
-      rating: 1000
+      game: game,
+      country: country
     })
-    if (error) setError(error.message)
-    else onComplete()
+    console.log("DONE - data:", data, "error:", error)
+    if (error) { setError(error.message) } else { onComplete() }
     setLoading(false)
   }
 
@@ -43,29 +42,20 @@ export default function ProfileSetup({ user, onComplete }) {
           </div>
           <div style={{ color:C.muted, fontSize:13, marginTop:4 }}>Set up your player profile</div>
         </div>
-
         <div style={{ fontSize:11, color:C.muted, marginBottom:6, letterSpacing:1 }}>USERNAME</div>
-        <input
-          placeholder="e.g. WaveRider07"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          style={{ width:"100%", padding:"10px 14px", background:"#0D1628", border:`1px solid ${C.border}`, borderRadius:8, color:C.text, fontSize:13, marginBottom:16, outline:"none", boxSizing:"border-box" }}
-        />
-
+        <input placeholder="e.g. WaveRider07" value={username} onChange={e => setUsername(e.target.value)}
+          style={{ width:"100%", padding:"10px 14px", background:"#0D1628", border:`1px solid ${C.border}`, borderRadius:8, color:C.text, fontSize:13, marginBottom:16, outline:"none", boxSizing:"border-box" }} />
         <div style={{ fontSize:11, color:C.muted, marginBottom:6, letterSpacing:1 }}>YOUR GAME</div>
         <select value={game} onChange={e => setGame(e.target.value)}
           style={{ width:"100%", padding:"10px 14px", background:"#0D1628", border:`1px solid ${C.border}`, borderRadius:8, color:C.text, fontSize:13, marginBottom:16, outline:"none", boxSizing:"border-box" }}>
           {GAMES.map(g => <option key={g}>{g}</option>)}
         </select>
-
         <div style={{ fontSize:11, color:C.muted, marginBottom:6, letterSpacing:1 }}>COUNTRY</div>
         <select value={country} onChange={e => setCountry(e.target.value)}
           style={{ width:"100%", padding:"10px 14px", background:"#0D1628", border:`1px solid ${C.border}`, borderRadius:8, color:C.text, fontSize:13, marginBottom:16, outline:"none", boxSizing:"border-box" }}>
           {COUNTRIES.map(c => <option key={c}>{c}</option>)}
         </select>
-
         {error && <div style={{ color:"#FF3B5C", fontSize:12, marginBottom:12, textAlign:"center" }}>{error}</div>}
-
         <button onClick={handleSave} disabled={loading}
           style={{ width:"100%", padding:"12px 0", background:C.blue, border:"none", borderRadius:8, color:"#050810", fontWeight:700, fontSize:14, cursor:"pointer" }}>
           {loading ? "Saving..." : "ENTER THE ARENA →"}
