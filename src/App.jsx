@@ -119,7 +119,35 @@ function Profile({ user }) {
 export default function App() {
   const [nav, setNav] = useState("HOME")
   const [session, setSession] = useState(null)
-  const [hasProfile, setHasProfile] = useState(false)
+const [hasProfile, setHasProfile] = useState(false)
+const [checkingProfile, setCheckingProfile] = useState(true)
+
+useEffect(() => {
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    setSession(session)
+    if (session) {
+      supabase.from("players")
+        .select("*")
+        .eq("user_id", session.user.id)
+        .single()
+        .then(({ data }) => {
+          if (data) setHasProfile(true)
+          setCheckingProfile(false)
+        })
+    } else {
+      setCheckingProfile(false)
+    }
+  })
+  supabase.auth.onAuthStateChange((_event, session) => {
+    setSession(session)
+  })
+}, [])
+
+if (checkingProfile) return (
+  <div style={{ minHeight:"100vh", background:"#050810", display:"flex", alignItems:"center", justifyContent:"center", color:"#00A8FF", fontFamily:"sans-serif", fontSize:18 }}>
+    Loading Wave Arena...
+  </div>
+)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
