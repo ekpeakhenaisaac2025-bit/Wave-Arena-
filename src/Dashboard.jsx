@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { supabase } from "./supabase"
+import TournamentBracket from "./TournamentBracket"
 
 const C = {
   bg: "#050810",
@@ -211,52 +212,7 @@ export default function Dashboard({ user, profile, onSignOut }) {
         )}
 
         {/* TOURNAMENTS TAB */}
-        {activeTab === "tournaments" && (
-          <div>
-            <div style={{ fontSize: 11, color: C.muted, letterSpacing: 2, marginBottom: 16 }}>ACTIVE TOURNAMENTS</div>
-            {tournaments.map(t => (
-              <div key={t.id} style={{
-                background: C.card, border: `1px solid ${C.border}`,
-                borderRadius: 12, padding: 16, marginBottom: 12
-              }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
-                  <div>
-                    <div style={{ fontSize: 14, fontWeight: 700 }}>{t.name}</div>
-                    <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{t.game} · {t.date}</div>
-                  </div>
-                  <div style={{
-                    padding: "4px 10px", borderRadius: 20, fontSize: 10, fontWeight: 700,
-                    background: t.status === "open" ? `${C.green}22` : `${C.red}22`,
-                    color: t.status === "open" ? C.green : C.red,
-                    border: `1px solid ${t.status === "open" ? C.green : C.red}44`
-                  }}>
-                    {t.status === "open" ? "OPEN" : "FULL"}
-                  </div>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <div style={{ display: "flex", gap: 16 }}>
-                    <div>
-                      <div style={{ fontSize: 11, color: C.muted }}>Prize</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: C.yellow }}>{t.prize}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: 11, color: C.muted }}>Players</div>
-                      <div style={{ fontSize: 14, fontWeight: 700 }}>{t.players}</div>
-                    </div>
-                  </div>
-                  <button disabled={t.status === "full"} style={{
-                    background: t.status === "open" ? C.blue : C.border,
-                    border: "none", borderRadius: 8, padding: "8px 16px",
-                    color: t.status === "open" ? "#050810" : C.muted,
-                    fontWeight: 700, fontSize: 12, cursor: t.status === "open" ? "pointer" : "not-allowed"
-                  }}>
-                    {t.status === "open" ? "JOIN →" : "FULL"}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        {activeTab === "tournaments" && <TournamentBracket />}
 
         {/* LEADERBOARD TAB */}
         {activeTab === "leaderboard" && (

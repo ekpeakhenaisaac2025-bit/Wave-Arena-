@@ -12,7 +12,10 @@ export default function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+const timeout = setTimeout(() => setLoading(false), 8000)
+
+supabase.auth.getSession().then(async ({ data: { session } }) => {
+  clearTimeout(timeout)
       setSession(session)
       if (session?.user) {
         const { data } = await supabase
@@ -44,10 +47,11 @@ export default function App() {
   }, [])
 
   if (loading) return (
-    <div style={{ minHeight:"100vh", background:"#050810", display:"flex", alignItems:"center", justifyContent:"center", color:"#00E5FF", fontSize:18, fontWeight:700 }}>
-      LOADING...
-    </div>
-  )
+  <div style={{ minHeight:"100vh", background:"#050810", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", color:"#00E5FF", fontSize:18, fontWeight:700 }}>
+    <div>LOADING...</div>
+    <div style={{ fontSize:12, color:"#5A7099", marginTop:12 }}>Connecting to server...</div>
+  </div>
+)
 
   if (!session) return <Auth />
 
