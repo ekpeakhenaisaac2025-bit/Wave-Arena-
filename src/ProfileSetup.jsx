@@ -18,21 +18,36 @@ export default function ProfileSetup({ user, onComplete }) {
   const [error, setError] = useState("")
 
   const handleSave = async () => {
-    if (!username.trim()) { setError("Username is required"); return }
-    setLoading(true)
-    setError("")
-    console.log("SAVING NOW - user id:", user.id)
-    const { data, error } = await supabase.from("players").insert({
-      id: user.id,
-      username: username.trim(),
-      game: game,
-      country: country
-    })
-    console.log("DONE - data:", data, "error:", error)
-    if (error) { setError(error.message) } else { onComplete() }
-    setLoading(false)
-  }
+  if (!username.trim()) { setError("Username is required"); return }
+  setLoading(true)
+  setError("")
+  console.log("SAVING NOW - user id:", user.id)
 
+  try {
+    const result = await Promise.race([
+      supabase.from("players").insert({
+        id: user.id,
+        username: username.trim(),
+        game: game,
+        country: country
+      }),
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("TIMEOUT - Supabase not responding after 10s")), 10000)
+      )
+    ])
+    console.log("DONE:", result)
+    if (result.error) {
+      setError(result.error.message)
+    } else {
+      onComplete()
+    }
+  } catch (err) {
+    console.log("CAUGHT ERROR:", err.message)
+    setError(err.message)
+  }
+  setLoading(false)
+}
+ 
   return (
     <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center" }}>
       <div style={{ background:C.card, border:`1px solid ${C.border}`, borderRadius:16, padding:32, width:320 }}>
