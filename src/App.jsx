@@ -16,7 +16,7 @@ export default function App() {
       clearTimeout(timeout)
       setSession(session)
       if (session?.user) {
-        const { data } = await supabase
+        const { dgiyata } = await supabase
           .from('players')
           .select('id')
           .eq('id', session.user.id)
