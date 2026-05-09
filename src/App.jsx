@@ -1,10 +1,8 @@
 import Dashboard from "./Dashboard"
-import MatchResult from "./MatchResult"
 import { useState, useEffect } from "react"
 import { supabase } from "./supabase"
 import Auth from "./Auth"
 import ProfileSetup from "./ProfileSetup"
-import Tournaments from "./Tournaments"
 
 export default function App() {
   const [session, setSession] = useState(null)
@@ -12,10 +10,10 @@ export default function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-const timeout = setTimeout(() => setLoading(false), 8000)
+    const timeout = setTimeout(() => setLoading(false), 8000)
 
-supabase.auth.getSession().then(async ({ data: { session } }) => {
-  clearTimeout(timeout)
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      clearTimeout(timeout)
       setSession(session)
       if (session?.user) {
         const { data } = await supabase
@@ -47,11 +45,11 @@ supabase.auth.getSession().then(async ({ data: { session } }) => {
   }, [])
 
   if (loading) return (
-  <div style={{ minHeight:"100vh", background:"#050810", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", color:"#00E5FF", fontSize:18, fontWeight:700 }}>
-    <div>LOADING...</div>
-    <div style={{ fontSize:12, color:"#5A7099", marginTop:12 }}>Connecting to server...</div>
-  </div>
-)
+    <div style={{ minHeight:"100vh", background:"#050810", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", color:"#00E5FF", fontSize:18, fontWeight:700 }}>
+      <div>LOADING...</div>
+      <div style={{ fontSize:12, color:"#5A7099", marginTop:12 }}>Connecting to server...</div>
+    </div>
+  )
 
   if (!session) return <Auth />
 
