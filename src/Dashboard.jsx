@@ -14,9 +14,7 @@ const C = {
 const NAV_ITEMS = [
   { id: "home", label: "Home", icon: "⚡" },
   { id: "tournaments", label: "Tournaments", icon: "🏆" },
-  { id: "leaderboard", label: "Leaderboard", icon: "📊" },
   { id: "matches", label: "Matches", icon: "⚔️" },
-  { id: "profile", label: "Profile", icon: "👤" },
   { id: "chat", label: "Chat", icon: "💬" },
 ]
 
@@ -86,10 +84,10 @@ export default function Dashboard({ user, onSignOut }) {
           WAVE<span style={{ color: C.cyan }}>ARENA</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: C.text }}>{playerData?.username || "Player"}</div>
-            <div style={{ fontSize: 11, color: C.cyan }}>⚡ {rating} ELO</div>
-          </div>
+          <div onClick={() => setActiveTab("profile")} style={{ textAlign: "right", cursor: "pointer" }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.text }}>{playerData?.username || "Player"}</div>
+          <div style={{ fontSize: 11, color: C.cyan }}>⚡ {rating} ELO</div>
+        </div>
           <button onClick={onSignOut} style={{
             background: "transparent", border: `1px solid ${C.border}`,
             borderRadius: 8, color: C.muted, padding: "6px 12px", fontSize: 11, cursor: "pointer"
