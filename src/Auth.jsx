@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { supabase } from "./supabase"
+
 
 const C = {
   bg: "#050810", card: "#0A1020", blue: "#00A8FF",

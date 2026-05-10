@@ -17,28 +17,28 @@ export default function ProfileSetup({ user, onComplete }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
-  const handleSave = async () => {
-    if (!username.trim()) { setError("Username is required"); return }
-    setLoading(true)
-    setError("")
+ const handleSave = async () => {
+  if (!username.trim()) { setError("Username is required"); return }
+  setLoading(true)
+  setError("")
 
-    const { error } = await supabase.from("players").upsert({
-      id: user.id,
-      username: username.trim(),
-      game,
-      country,
-      wins: 0,
-      losses: 0,
-      rating: 1000,
-    }, { onConflict: "id" })
+  const { error } = await supabase.from("players").upsert({
+    id: user.id,
+    username: username.trim(),
+    game,
+    country,
+    wins: 0,
+    losses: 0,
+    rating: 1000,
+  }, { onConflict: "id" })
 
-    if (error) {
-      setError(error.message)
-    } else {
-      onComplete()
-    }
+  if (error) {
+    setError("Error: " + error.message)
     setLoading(false)
+  } else {
+    onComplete()
   }
+}
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
@@ -77,6 +77,10 @@ export default function ProfileSetup({ user, onComplete }) {
           borderRadius: 8, color: "#050810", fontWeight: 900, fontSize: 14,
           cursor: loading ? "not-allowed" : "pointer", letterSpacing: 1
         }}>
+          <button onClick={() => setError("User ID: " + user?.id + " | Email: " + user?.email)} 
+  style={{ width:"100%", padding:"13px 0", background:"orange", border:"none", borderRadius:8, color:"#000", fontWeight:900, fontSize:12, cursor:"pointer", marginBottom:8 }}>
+  CHECK USER ID
+</button>
           {loading ? "Saving..." : "ENTER THE ARENA →"}
         </button>
       </div>
