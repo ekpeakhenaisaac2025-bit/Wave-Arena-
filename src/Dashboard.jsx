@@ -1,3 +1,4 @@
+import ChatSystem from "./ChatSystem"
 import { useState, useEffect } from "react"
 import { supabase } from "./supabase"
 import TournamentBracket from "./TournamentBracket"
@@ -16,6 +17,7 @@ const NAV_ITEMS = [
   { id: "leaderboard", label: "Leaderboard", icon: "📊" },
   { id: "matches", label: "Matches", icon: "⚔️" },
   { id: "profile", label: "Profile", icon: "👤" },
+  { id: "chat", label: "Chat", icon: "💬" },
 ]
 
 const MOCK_MATCHES = [
@@ -262,6 +264,7 @@ export default function Dashboard({ user, onSignOut }) {
 
         {/* ── PROFILE TAB ── */}
         {activeTab === "profile" && <PlayerProfile user={user} />}
+        {activeTab === "chat" && <ChatSystem user={user} />}
 
       </div>
 
