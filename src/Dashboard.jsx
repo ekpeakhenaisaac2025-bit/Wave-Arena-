@@ -119,6 +119,38 @@ export default function Dashboard({ user, profile, onSignOut }) {
         {/* HOME TAB */}
         {activeTab === "home" && (
           <div>
+            {/* HERO SECTION */}
+<div style={{ background:"linear-gradient(135deg, #051020, #0A1628)", border:"1px solid #1A2540", borderRadius:16, padding:"32px 20px", textAlign:"center", marginBottom:16 }}>
+  <div style={{ fontSize:10, color:"#00A8FF", letterSpacing:3, marginBottom:10 }}>AFRICA'S #1 ESPORTS ECOSYSTEM</div>
+  <div style={{ fontSize:48, fontWeight:900, color:"#E8F0FF", letterSpacing:4, lineHeight:1 }}>WAVE</div>
+  <div style={{ fontSize:48, fontWeight:900, color:"#00E5FF", letterSpacing:4, lineHeight:1, marginBottom:10 }}>ARENA</div>
+  <div style={{ color:"#5A7099", fontSize:13, marginBottom:20 }}>Where Legends Rise</div>
+  <div style={{ display:"flex", gap:10, justifyContent:"center", flexWrap:"wrap" }}>
+    <button onClick={()=>setActiveTab("tournaments")} style={{ padding:"12px 20px", background:"#00A8FF", border:"none", borderRadius:8, color:"#050810", fontWeight:700, fontSize:13, cursor:"pointer" }}>FIND TOURNAMENTS</button>
+    <button onClick={()=>setActiveTab("leaderboard")} style={{ padding:"12px 20px", background:"transparent", border:"1px solid #1A2540", borderRadius:8, color:"#E8F0FF", fontWeight:700, fontSize:13, cursor:"pointer" }}>LEADERBOARD</button>
+  </div>
+</div>
+
+{/* LIVE MATCH BANNER */}
+<div style={{ background:"rgba(255,59,92,0.1)", border:"1px solid rgba(255,59,92,0.4)", borderRadius:10, padding:"14px 16px", marginBottom:16, display:"flex", alignItems:"center", gap:10 }}>
+  <div style={{ width:8, height:8, borderRadius:"50%", background:"#FF3B5C", flexShrink:0 }} />
+  <div style={{ flex:1 }}>
+    <div style={{ fontWeight:700, color:"#E8F0FF", fontSize:13 }}>LIVE: East Africa PUBG Open</div>
+    <div style={{ fontSize:11, color:"#5A7099" }}>🇰🇪 Kenya · $2,500 Prize · 16 Teams</div>
+  </div>
+  <span style={{ color:"#FF3B5C", fontSize:12, fontWeight:700 }}>LIVE →</span>
+</div>
+
+{/* PLATFORM STATS */}
+<div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:10, marginBottom:16 }}>
+  {[["👾","18,400+","Players"],["🛡️","1,200+","Teams"],["🏆","340+","Tournaments"],["💰","$280K+","Prize Pool"]].map(([icon,val,label])=>(
+    <div key={label} style={{ background:"#0A1020", border:"1px solid #1A2540", borderRadius:10, padding:14, textAlign:"center" }}>
+      <div style={{ fontSize:20 }}>{icon}</div>
+      <div style={{ fontSize:18, fontWeight:700, color:"#00A8FF", marginTop:4 }}>{val}</div>
+      <div style={{ fontSize:11, color:"#5A7099" }}>{label}</div>
+    </div>
+  ))}
+</div>
             {/* Stats Cards */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 20 }}>
               {[

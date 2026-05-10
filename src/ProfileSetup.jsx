@@ -77,10 +77,7 @@ export default function ProfileSetup({ user, onComplete }) {
           borderRadius: 8, color: "#050810", fontWeight: 900, fontSize: 14,
           cursor: loading ? "not-allowed" : "pointer", letterSpacing: 1
         }}>
-          <button onClick={() => setError("User ID: " + user?.id + " | Email: " + user?.email)} 
-  style={{ width:"100%", padding:"13px 0", background:"orange", border:"none", borderRadius:8, color:"#000", fontWeight:900, fontSize:12, cursor:"pointer", marginBottom:8 }}>
-  CHECK USER ID
-</button>
+         
           {loading ? "Saving..." : "ENTER THE ARENA →"}
         </button>
       </div>
