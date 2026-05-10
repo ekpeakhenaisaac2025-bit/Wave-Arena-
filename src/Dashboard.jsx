@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { supabase } from "./supabase"
 import TournamentBracket from "./TournamentBracket"
+import PlayerProfile from "./PlayerProfile"
 
 const C = {
   bg: "#050810",
@@ -21,6 +22,7 @@ const NAV_ITEMS = [
   { id: "tournaments", label: "Tournaments", icon: "🏆" },
   { id: "leaderboard", label: "Leaderboard", icon: "📊" },
   { id: "matches", label: "Matches", icon: "⚔️" },
+  { id: "profile", label: "Profile", icon: "👤" },
 ]
 
 const MOCK_LEADERBOARD = [
@@ -310,6 +312,7 @@ export default function Dashboard({ user, profile, onSignOut }) {
                       color: getRatingColor(match.rating)
                     }}>{match.rating} ELO</div>
                   </div>
+                  {activeTab === "profile" && <PlayerProfile user={user} />}
                 </div>
                 <div style={{
                   marginTop: 10, paddingTop: 10, borderTop: `1px solid ${C.border}`,
