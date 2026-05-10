@@ -1,6 +1,5 @@
 import Dashboard from "./Dashboard"
 import { useState, useEffect } from "react"
-import { supabase } from "./supabase"
 import Auth from "./Auth"
 import ProfileSetup from "./ProfileSetup"
 
