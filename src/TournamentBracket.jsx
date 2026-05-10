@@ -324,4 +324,40 @@ export default function TournamentBracket({user}){
                 <div style={{fontSize:52,marginBottom:16}}>🏆</div>
                 <div style={{fontSize:17,fontWeight:700,color:C.text,marginBottom:8}}>No Tournaments Yet</div>
                 <div style={{fontSize:13,color:C.muted,marginBottom:28}}>Create your first tournament and start competing</div>
-                <button onClick={()=>setShowCreate(true)} style={{padding:"13px 30px
+                <button onClick={()=>setShowCreate(true)} style={{padding:"13px 30px",background:C.blue,border:"none",borderRadius:10,color:"#050810",fontWeight:900,fontSize:14,cursor:"pointer"}}>CREATE TOURNAMENT</button>
+              </div>
+            ):tournaments.map(t=>(
+              <div key={t.id} onClick={()=>setActiveId(t.id)} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:16,marginBottom:12,cursor:"pointer",borderLeft:`3px solid ${C.yellow}`}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+                  <div>
+                    <div style={{fontSize:15,fontWeight:700}}>{t.name}</div>
+                    <div style={{fontSize:11,color:C.muted,marginTop:3}}>{t.game} · {t.size} Players · {t.type==="elimination"?"Single Elimination":"League"}</div>
+                    <div style={{fontSize:10,color:C.muted,marginTop:2}}>{new Date(t.created_at).toLocaleDateString()}</div>
+                  </div>
+                  <div style={{padding:"3px 10px",borderRadius:20,fontSize:10,fontWeight:700,background:`${C.green}20`,color:C.green,border:`1px solid ${C.green}40`}}>ACTIVE</div>
+                </div>
+                <div style={{marginTop:10,fontSize:12,color:C.cyan,fontWeight:700}}>TAP TO VIEW →</div>
+              </div>
+            ))}
+          </div>
+        ):(
+          <div>
+            <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
+              <button onClick={()=>setActiveId(null)} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:8,padding:"6px 14px",color:C.muted,fontSize:12,cursor:"pointer"}}>← BACK</button>
+              <div>
+                <div style={{fontSize:15,fontWeight:700}}>{active.name}</div>
+                <div style={{fontSize:11,color:C.muted}}>{active.game} · {active.size} Players · {active.type==="elimination"?"Single Elimination":"League"}</div>
+              </div>
+            </div>
+            {active.type==="elimination"?(
+              <BracketView rounds={active.rounds} playerCount={active.size} onSetWinner={(mid,w,s1,s2)=>handleSetWinner(active.id,mid,w,s1,s2)}/>
+            ):(
+              <LeagueView players={active.players} matches={active.matches} onSetResult={(mid,s1,s2)=>handleLeagueResult(active.id,mid,s1,s2)}/>
+            )}
+          </div>
+        )}
+      </div>
+      {showCreate&&<CreateModal onClose={()=>setShowCreate(false)} onCreate={handleCreate}/>}
+    </div>
+  )
+}
