@@ -40,10 +40,10 @@ export default function App() {
 
   if (!user) return <Auth />
 
-  return (
-    <Dashboard
-      user={user}
-      onSignOut={() => supabase.auth.signOut()}
-    />
-  )
+ return (
+  <Dashboard
+    user={user}
+    onSignOut={() => supabase.auth.signOut()}
+  />
+)
 }
