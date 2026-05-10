@@ -244,7 +244,7 @@ export default function Dashboard({ user, profile, onSignOut }) {
         )}
 
         {/* TOURNAMENTS TAB */}
-        {activeTab === "tournaments" && <TournamentBracket />}
+        {activeTab === "tournaments" && <TournamentBracket user={user} />}
 
         {/* LEADERBOARD TAB */}
         {activeTab === "leaderboard" && (
