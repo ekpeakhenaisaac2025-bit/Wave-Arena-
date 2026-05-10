@@ -134,6 +134,57 @@ export default function Dashboard({ user, onSignOut }) {
               ))}
             </div>
 
+            {/* GAMES SECTION */}
+<div style={{ marginBottom: 20 }}>
+  <div style={{ fontSize: 11, color: C.muted, letterSpacing: 2, marginBottom: 12 }}>AVAILABLE GAMES</div>
+  
+  {[
+    { name: "FIFA", tag: "Football", color: "#00A8FF", players: "8,200+", emoji: "⚽",
+      bg: "linear-gradient(135deg, #003366, #0066cc)" },
+    { name: "PUBG Mobile", tag: "Battle Royale", color: "#FFD700", players: "4,100+", emoji: "🔫",
+      bg: "linear-gradient(135deg, #1a1a00, #4d4d00)" },
+    { name: "Call of Duty", tag: "FPS Shooter", color: "#FF6600", players: "2,800+", emoji: "💣",
+      bg: "linear-gradient(135deg, #1a0a00, #4d1f00)" },
+    { name: "Valorant", tag: "Tactical FPS", color: "#FF4655", players: "1,900+", emoji: "🎯",
+      bg: "linear-gradient(135deg, #1a0008, #4d0015)" },
+    { name: "Tekken 8", tag: "Fighting Game", color: "#9B59B6", players: "900+", emoji: "👊",
+      bg: "linear-gradient(135deg, #0d0018, #2a0050)" },
+    { name: "eFootball", tag: "Football", color: "#00CC44", players: "500+", emoji: "🏟️",
+      bg: "linear-gradient(135deg, #001a00, #004d00)" },
+  ].map(game => (
+    <div key={game.name} onClick={() => setActiveTab("tournaments")} style={{
+      background: game.bg,
+      border: `1px solid ${game.color}44`,
+      borderRadius: 14, padding: "16px 14px", marginBottom: 10,
+      cursor: "pointer", display: "flex", alignItems: "center", gap: 14,
+      position: "relative", overflow: "hidden"
+    }}>
+      {/* Glow effect */}
+      <div style={{ position: "absolute", right: -20, top: -20, width: 100, height: 100, borderRadius: "50%", background: `${game.color}15`, pointerEvents: "none" }} />
+      
+      {/* Game Icon */}
+      <div style={{
+        width: 56, height: 56, borderRadius: 12, flexShrink: 0,
+        background: `${game.color}22`, border: `2px solid ${game.color}66`,
+        display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28
+      }}>{game.emoji}</div>
+      
+      {/* Info */}
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: 16, fontWeight: 900, color: "#E8F0FF" }}>{game.name}</div>
+        <div style={{ fontSize: 11, color: game.color, fontWeight: 700, marginTop: 2 }}>{game.tag}</div>
+        <div style={{ fontSize: 11, color: "#5A7099", marginTop: 4 }}>👥 {game.players} players</div>
+      </div>
+
+      {/* Arrow + Active badge */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+        <div style={{ background: `${game.color}22`, border: `1px solid ${game.color}44`, borderRadius: 20, padding: "2px 10px", fontSize: 9, fontWeight: 700, color: game.color }}>ACTIVE</div>
+        <div style={{ fontSize: 18, color: game.color }}>→</div>
+      </div>
+    </div>
+  ))}
+</div>
+
             {/* Player Stats */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 20 }}>
               {[
